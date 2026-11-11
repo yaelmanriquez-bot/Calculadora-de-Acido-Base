@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Calculadora Ácido-Base y pH</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css">
+<script src="script.js" defer></script>
+</head>
+<body>
+
+  <header>
+    <nav>
+      <a class="brand" href="#inicio">
+        <span class="brand-mark" aria-hidden="true">pH</span>
+        <span class="brand-text">Ácido &amp; Base</span>
+      </a>
+      <details class="menu" id="menu">
+        <summary>Menú <span class="chev" aria-hidden="true"></span></summary>
+        <div class="menu-list">
+          <a href="#inicio">Inicio</a>
+          <a href="#calculadora">Calculadora</a>
+          <a href="#teoria">Teoría</a>
+          <a href="#ejemplos">Ejemplos</a>
+        </div>
+      </details>
+    </nav>
+  </header>
+
+  <main>
+
+    <!-- ===================== HERO / ESCALA DE pH ===================== -->
+    <section id="inicio" class="hero">
+      <div class="hero-text">
+        <h1>Calculadora de Ácido&#8211;Base y pH</h1>
+        <p class="lead">
+          Calcula pH, pOH, concentración de protones [H&#8314;] y de iones hidroxilo [OH&#8315;]
+          para ácidos y bases fuertes o débiles, incluso a partir de su constante de equilibrio
+          (Ka o Kb). Pensada para estudiantes, apoderados o cualquier persona sin conocimientos
+          previos de química.
+        </p>
+        <a class="cta" href="#calculadora">Ir a la calculadora</a>
+      </div>
+      <div class="hero-scale"><svg class="flask" viewBox="0 0 200 220" role="img" aria-label="Matraz con una solución burbujeante e iones H+ y OH-">
+          <defs><linearGradient id="liq" x1="0" x2="1"><stop offset="0" stop-color="#7a3fc0"/><stop offset="1" stop-color="#1fb5a8"/></linearGradient>
+          <clipPath id="fc"><path d="M80 20h40v70l50 90a14 14 0 0 1-12 22H42a14 14 0 0 1-12-22l50-90z"/></clipPath></defs>
+          <g clip-path="url(#fc)"><g class="wave"><path d="M-50 135q25-12 50 0t50 0 50 0 50 0 50 0 50 0V230H-50z" fill="url(#liq)"/></g>
+          <circle class="bub" cx="80" cy="190" r="5"/><circle class="bub b2" cx="105" cy="195" r="4"/><circle class="bub b3" cx="125" cy="188" r="6"/></g>
+          <path d="M80 20h40v70l50 90a14 14 0 0 1-12 22H42a14 14 0 0 1-12-22l50-90z" fill="none" stroke="#c4b0ff" stroke-width="3"/>
+          <rect x="74" y="12" width="52" height="9" rx="3" fill="#c4b0ff"/>
+          <text class="tag" x="150" y="50" fill="#c4b0ff">H⁺</text><text class="tag o" x="20" y="70" fill="#5eead4">OH⁻</text></svg>
+        
+        <div class="scale-bar">
+          <div class="scale-tick" style="left:0%"><span>0</span></div>
+          <div class="scale-tick" style="left:50%"><span>7</span></div>
+          <div class="scale-tick" style="left:100%"><span>14</span></div>
+        </div>
+        <div class="scale-labels">
+          <span>Ácido</span><span>Neutro</span><span>Básico</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===================== CALCULADORA ===================== -->
+    <section id="calculadora" class="calc-section">
+      <h2>Calculadora</h2>
+      <p class="section-intro">Elige el tipo de sustancia o el dato que tienes disponible.</p>
+
+      <div class="tabs" role="tablist">
+        <button class="tab active" data-mode="acido-fuerte" role="tab" aria-selected="true">Ácido fuerte</button>
+        <button class="tab" data-mode="acido-debil" role="tab" aria-selected="false">Ácido débil</button>
+        <button class="tab" data-mode="base-fuerte" role="tab" aria-selected="false">Base fuerte</button>
+        <button class="tab" data-mode="base-debil" role="tab" aria-selected="false">Base débil</button>
+        <button class="tab" data-mode="desde-ph" role="tab" aria-selected="false">Desde pH / pOH</button>
+      </div>
+
+      <div class="calc-grid">
+
+        <!-- FORMULARIO -->
+        <form id="calc-form" class="calc-form" autocomplete="off">
+
+          <!-- Ácido fuerte -->
+          <fieldset data-panel="acido-fuerte" class="panel active">
+            <legend>Ácido fuerte
+              <button type="button" class="info-btn" data-tip="tip-af">?</button>
+            </legend>
+            <p class="tip" id="tip-af">Un ácido fuerte se disocia completamente: [H&#8314;] = C<sub>ácido</sub>. Ej: HCl, HNO&#8323;, H&#8322;SO&#8324;.</p>
+            <label>Concentración inicial del ácido (mol/L)
+              <input type="number" step="any" min="0" id="af-c" placeholder="Ej: 0.01" required>
+            </label>
+          </fieldset>
+
+          <!-- Ácido débil -->
+          <fieldset data-panel="acido-debil" class="panel">
+            <legend>Ácido débil
+              <button type="button" class="info-btn" data-tip="tip-ad">?</button>
+            </legend>
+            <p class="tip" id="tip-ad">Un ácido débil se disocia parcialmente. Se usa su constante Ka: Ka = x&#178; / (C&#8722;x). Ej: CH&#8323;COOH.</p>
+            <label>Concentración inicial del ácido (mol/L)
+              <input type="number" step="any" min="0" id="ad-c" placeholder="Ej: 0.1" required>
+            </label>
+            <label>Constante de acidez Ka
+              <input type="number" step="any" min="0" id="ad-ka" placeholder="Ej: 1.8e-5" required>
+            </label>
+          </fieldset>
+
+          <!-- Base fuerte -->
+          <fieldset data-panel="base-fuerte" class="panel">
+            <legend>Base fuerte
+              <button type="button" class="info-btn" data-tip="tip-bf">?</button>
+            </legend>
+            <p class="tip" id="tip-bf">Una base fuerte se disocia completamente: [OH&#8315;] = C<sub>base</sub>. Ej: NaOH, KOH.</p>
+            <label>Concentración inicial de la base (mol/L)
+              <input type="number" step="any" min="0" id="bf-c" placeholder="Ej: 0.02" required>
+            </label>
+          </fieldset>
+
+          <!-- Base débil -->
+          <fieldset data-panel="base-debil" class="panel">
+            <legend>Base débil
+              <button type="button" class="info-btn" data-tip="tip-bd">?</button>
+            </legend>
+            <p class="tip" id="tip-bd">Una base débil se disocia parcialmente. Se usa su constante Kb: Kb = x&#178; / (C&#8722;x). Ej: NH&#8323;.</p>
+            <label>Concentración inicial de la base (mol/L)
+              <input type="number" step="any" min="0" id="bd-c" placeholder="Ej: 0.1" required>
+            </label>
+            <label>Constante de basicidad Kb
+              <input type="number" step="any" min="0" id="bd-kb" placeholder="Ej: 1.8e-5" required>
+            </label>
+          </fieldset>
+
+          <!-- Desde pH / pOH -->
+          <fieldset data-panel="desde-ph" class="panel">
+            <legend>Desde pH o pOH conocido
+              <button type="button" class="info-btn" data-tip="tip-ph">?</button>
+            </legend>
+            <p class="tip" id="tip-ph">Si ya conoces el pH o el pOH de una solución, obtén el resto de las variables: [H&#8314;] = 10&#8315;<sup>pH</sup>, [OH&#8315;] = 10&#8315;<sup>pOH</sup>.</p>
+            <div class="radio-row">
+              <label><input type="radio" name="ph-mode" value="ph" checked> Conozco el pH</label>
+              <label><input type="radio" name="ph-mode" value="poh"> Conozco el pOH</label>
+            </div>
+            <label id="ph-input-label">Valor de pH
+              <input type="number" step="any" id="ph-val" placeholder="Ej: 4.5" required>
+            </label>
+          </fieldset>
+
+          <button type="submit" class="cta calc-btn">Calcular</button>
+        </form>
+
+        <!-- RESULTADOS -->
+        <div class="results" id="results">
+          <div class="results-empty" id="results-empty">
+            <p>Completa los datos y presiona <strong>Calcular</strong> para ver el pH, pOH, [H&#8314;] y [OH&#8315;].</p>
+          </div>
+
+          <div class="results-content" id="results-content" hidden>
+            <div class="gauge-wrap">
+              <div class="gauge-bar">
+                <div class="gauge-marker" id="gauge-marker"></div>
+              </div>
+              <div class="gauge-value" id="gauge-value">pH 7.00</div>
+              <div class="gauge-tag" id="gauge-tag">Neutro</div>
+            </div>
+
+            <dl class="result-list">
+              <div><dt>pH</dt><dd id="res-ph">&mdash;</dd></div>
+              <div><dt>pOH</dt><dd id="res-poh">&mdash;</dd></div>
+              <div><dt>[H&#8314;]</dt><dd id="res-h">&mdash;</dd></div>
+              <div><dt>[OH&#8315;]</dt><dd id="res-oh">&mdash;</dd></div>
+            </dl>
+
+            <details class="steps">
+              <summary>Ver desarrollo del cálculo</summary>
+              <ol id="res-steps"></ol>
+            </details>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===================== TEORÍA ===================== -->
+    <section id="teoria" class="teoria-section">
+      <h2>Teoría</h2>
+      <p class="section-intro">Revisa los conceptos en orden: de las propiedades básicas hasta el método de cálculo que usa la calculadora.</p>
+      <div class="t-tabs" role="tablist">
+        <button class="t-tab active" data-t="t1">1. Propiedades</button>
+        <button class="t-tab" data-t="t2">2. Teorías ácido-base</button>
+        <button class="t-tab" data-t="t3">3. Agua, pH y pOH</button>
+        <button class="t-tab" data-t="t4">4. Fuertes y débiles</button>
+        <button class="t-tab" data-t="t5">5. Cómo se calcula</button>
+      </div>
+
+      <div class="t-panel active" id="t1">
+        <h3>Propiedades de ácidos y bases</h3>
+        <div class="strips"><div><span class="strip a"></span>Ácido: el papel indicador se enrojece</div><div><span class="strip b"></span>Base: el papel indicador se vuelve azul</div></div>
+        <div class="tbl-wrap"><table class="tbl"><tr><th>Propiedad</th><th>Ácidos</th><th>Bases</th></tr>
+        <tr><td>Sabor</td><td>Agrio.</td><td>Amargo.</td></tr>
+        <tr><td>Tacto</td><td>Corrosivos para la piel.</td><td>Suaves al tacto (jabonosos), pero corrosivos para la piel.</td></tr>
+        <tr><td>Indicadores vegetales</td><td>Enrojecen ciertos colorantes vegetales.</td><td>Dan color azul a ciertos colorantes vegetales.</td></tr>
+        <tr><td>Reactividad</td><td>Disuelven sustancias y atacan metales desprendiendo hidrógeno gaseoso (H<sub>2</sub>).</td><td>Precipitan sustancias disueltas por ácidos y disuelven grasas.</td></tr>
+        <tr><td>Neutralización</td><td>Pierden sus propiedades al reaccionar con bases.</td><td>Pierden sus propiedades al reaccionar con ácidos.</td></tr></table></div>
+      </div>
+
+      <div class="t-panel" id="t2">
+        <h3>Tres modelos de alcance creciente</h3>
+        <div class="duo">
+          <div class="card2"><h4>Arrhenius (1887)</h4><p>Basada en la disociación iónica en agua.</p>
+            <p><strong>Ácido:</strong> libera H<sup>+</sup> (o H<sub>3</sub>O<sup>+</sup>).</p><div class="fx">HCl(ac) → H<sup>+</sup>(ac) + Cl<sup>−</sup>(ac)</div>
+            <p><strong>Base:</strong> libera OH<sup>−</sup>.</p><div class="fx">NaOH(ac) → Na<sup>+</sup>(ac) + OH<sup>−</sup>(ac)</div>
+            <p><em>Limitación:</em> solo disoluciones acuosas; no explica el NH<sub>3</sub>, que no tiene grupos OH.</p></div>
+          <div class="card2 p"><h4>Lewis</h4><p><strong>Ácido:</strong> acepta un par de electrones (tiene orbitales vacíos). <strong>Base:</strong> aporta un par de electrones no compartido.</p>
+            <div class="fx">BF<sub>3</sub> + :NH<sub>3</sub> → F<sub>3</sub>B–NH<sub>3</sub></div>
+            <p>El BF<sub>3</sub> (hibridación sp<sup>2</sup>) tiene un orbital p vacío: es el ácido. El NH<sub>3</sub> aporta el par libre: es la base.</p></div>
+        </div>
+        <h3>Brønsted-Lowry: transferencia de protones</h3>
+        <svg class="proton" viewBox="0 0 360 120" role="img" aria-label="Un ácido cede un protón a una base">
+          <circle cx="60" cy="55" r="30" fill="#7a3fc0"/><text x="60" y="60" text-anchor="middle">HA</text><text x="60" y="108" text-anchor="middle">Ácido cede H⁺</text>
+          <circle cx="300" cy="55" r="30" fill="#1a8fa3"/><text x="300" y="60" text-anchor="middle">B</text><text x="300" y="108" text-anchor="middle">Base capta H⁺</text>
+          <g class="hp"><circle cx="98" cy="55" r="11" fill="#fff"/><text x="98" y="59" text-anchor="middle" style="fill:#4a2a85;font-size:11px">H⁺</text></g></svg>
+        <p><strong>Ácido:</strong> cede un protón (H<sup>+</sup>). <strong>Base:</strong> capta un protón. Toda reacción forma dos <strong>pares conjugados</strong>.</p>
+        <div class="duo">
+          <div class="card2"><h4>Ácido débil</h4><div class="fx">HNO<sub>2</sub> + H<sub>2</sub>O ⇌ NO<sub>2</sub><sup>−</sup> + H<sub>3</sub>O<sup>+</sup></div>
+            <div class="pair"><span class="chip">HNO<sub>2</sub> ácido</span>→<span class="chip b">NO<sub>2</sub><sup>−</sup> base conjugada</span></div>
+            <div class="pair"><span class="chip b">H<sub>2</sub>O base</span>→<span class="chip">H<sub>3</sub>O<sup>+</sup> ácido conjugado</span></div></div>
+          <div class="card2 p"><h4>Base débil</h4><div class="fx">NH<sub>3</sub> + H<sub>2</sub>O ⇌ NH<sub>4</sub><sup>+</sup> + OH<sup>−</sup></div>
+            <div class="pair"><span class="chip b">NH<sub>3</sub> base</span>→<span class="chip">NH<sub>4</sub><sup>+</sup> ácido conjugado</span></div>
+            <div class="pair"><span class="chip">H<sub>2</sub>O ácido</span>→<span class="chip b">OH<sup>−</sup> base conjugada</span></div></div>
+        </div>
+        <h4>Según los protones que pueden ceder</h4>
+        <ul><li><strong>Monopróticos:</strong> HCl, HNO<sub>3</sub>, HCOOH (fórmico), CH<sub>3</sub>COOH (acético), C<sub>6</sub>H<sub>5</sub>COOH (benzoico).</li>
+        <li><strong>Dipróticos</strong> (en dos etapas): H<sub>2</sub>SO<sub>4</sub>, H<sub>2</sub>S, H<sub>2</sub>CO<sub>3</sub>.<div class="fx">H<sub>2</sub>SO<sub>4</sub> → H<sup>+</sup> + HSO<sub>4</sub><sup>−</sup> &nbsp;|&nbsp; HSO<sub>4</sub><sup>−</sup> ⇌ H<sup>+</sup> + SO<sub>4</sub><sup>2−</sup></div></li>
+        <li><strong>Tripróticos:</strong> H<sub>3</sub>PO<sub>4</sub>.<div class="fx">H<sub>3</sub>PO<sub>4</sub> ⇌ H<sup>+</sup> + H<sub>2</sub>PO<sub>4</sub><sup>−</sup> ⇌ H<sup>+</sup> + HPO<sub>4</sub><sup>2−</sup> ⇌ H<sup>+</sup> + PO<sub>4</sub><sup>3−</sup></div></li></ul>
+        <p><strong>Ventaja:</strong> funciona fuera del agua y explica la basicidad del NH<sub>3</sub>. <strong>Desventaja:</strong> el ácido debe tener al menos un hidrógeno.</p>
+      </div>
+
+      <div class="t-panel" id="t3">
+        <h3>Autoprotólisis del agua</h3>
+        <p>El agua es <strong>anfiprótica</strong>: puede actuar como ácido o como base. En agua pura ocurre:</p>
+        <div class="fx">H<sub>2</sub>O(l) + H<sub>2</sub>O(l) ⇌ H<sub>3</sub>O<sup>+</sup>(ac) + OH<sup>−</sup>(ac)</div>
+        <div class="fx">K<sub>w</sub> = [H<sub>3</sub>O<sup>+</sup>]·[OH<sup>−</sup>] = 1,0×10<sup>−14</sup> &nbsp;(25 °C)</div>
+        <p>En agua pura (neutra): [H<sub>3</sub>O<sup>+</sup>] = [OH<sup>−</sup>] = 1,0×10<sup>−7</sup> M.</p>
+        <h3>pH y pOH</h3>
+        <p>Søren Sørensen propuso la escala logarítmica de acidez:</p>
+        <div class="fx">pH = −log[H<sup>+</sup>] &nbsp;&nbsp; pOH = −log[OH<sup>−</sup>] &nbsp;&nbsp; <strong>pH + pOH = 14</strong></div>
+        <div class="fx">[H<sup>+</sup>] = 10<sup>−pH</sup> &nbsp;&nbsp; [OH<sup>−</sup>] = 10<sup>−pOH</sup></div>
+        <ul><li><strong>pH &lt; 7:</strong> ácida ([H<sup>+</sup>] &gt; 10<sup>−7</sup> M).</li><li><strong>pH = 7:</strong> neutra.</li><li><strong>pH &gt; 7:</strong> básica o alcalina ([OH<sup>−</sup>] &gt; 10<sup>−7</sup> M).</li></ul>
+        <h3>¿Qué hay en cada solución?</h3>
+        <div class="three"><div class="beaker"><div class="ions" data-ions="12,2"></div>Ácida (pH &lt; 7)<br>más H⁺ que OH⁻</div><div class="beaker"><div class="ions" data-ions="6,6"></div>Neutra (pH = 7)<br>H⁺ = OH⁻</div><div class="beaker"><div class="ions" data-ions="2,12"></div>Básica (pH &gt; 7)<br>más OH⁻ que H⁺</div></div>
+        <h3>El pH en la vida cotidiana</h3>
+        <ul class="phlist"><li><b>0–1</b> · ácido muriático, ácido de baterías</li><li><b>2</b> · jugo de limón</li><li><b>2,5–3</b> · vinagre, bebidas de cola</li><li><b>4</b> · vinos y cerveza</li><li><b>5</b> · plátanos, tomates, café negro</li><li><b>6</b> · orina humana, leche, agua de lluvia</li><li><b>7</b> · agua destilada</li><li><b>8–9</b> · agua de mar, bicarbonato</li><li><b>10</b> · pasta dental, leche de magnesia</li><li><b>12</b> · amoníaco doméstico</li><li><b>13</b> · lejía</li></ul>
+      </div>
+
+      <div class="t-panel" id="t4">
+        <h3>La fuerza depende del grado de disociación</h3>
+        <div class="duo"><div class="card2"><h4>Ácido fuerte: 10 de 10 se separan</h4><div class="mols" data-split="10"></div></div><div class="card2 p"><h4>Ácido débil: solo 1 de 10 se separa</h4><div class="mols" data-split="1"></div></div></div>
+        <div class="duo">
+          <div class="card2"><h4>Fuertes (100 % disociados, →)</h4>
+            <p><strong>Ácidos:</strong> HCl, HNO<sub>3</sub>, H<sub>2</sub>SO<sub>4</sub>, HClO<sub>4</sub>.</p><div class="fx">[H<sup>+</sup>] = [Ácido]</div>
+            <p><strong>Bases:</strong> NaOH, KOH, LiOH, Ca(OH)<sub>2</sub>.</p><div class="fx">[OH<sup>−</sup>] = [Base] &nbsp;(o 2×[Base] si libera dos OH<sup>−</sup>)</div></div>
+          <div class="card2 p"><h4>Débiles (parciales, ⇌)</h4>
+            <div class="fx">HB + H<sub>2</sub>O ⇌ H<sub>3</sub>O<sup>+</sup> + B<sup>−</sup><br>K<sub>a</sub> = [H<sub>3</sub>O<sup>+</sup>][B<sup>−</sup>] / [HB]<br>[H<sup>+</sup>] ≈ √(K<sub>a</sub>·[Ácido])</div>
+            <div class="fx">B + H<sub>2</sub>O ⇌ BH<sup>+</sup> + OH<sup>−</sup><br>K<sub>b</sub> = [OH<sup>−</sup>][BH<sup>+</sup>] / [B]<br>[OH<sup>−</sup>] ≈ √(K<sub>b</sub>·[Base])</div></div>
+        </div>
+        <p class="nota">Cuanto mayor es K<sub>a</sub> (o K<sub>b</sub>), más fuerte es el ácido (o la base). La raíz cuadrada es una aproximación válida si se disocia poco; la calculadora resuelve la ecuación cuadrática exacta x² + K·x − K·C = 0.</p>
+      </div>
+
+      <div class="t-panel" id="t5">
+        <h3>Algoritmo de cálculo en 3 pasos</h3>
+        <ol class="steps3">
+          <li><strong>Identifica el electrolito:</strong> ¿es ácido o base? ¿fuerte o débil?</li>
+          <li><strong>Calcula la concentración iónica:</strong> ácido fuerte [H<sup>+</sup>] = [Ácido]; base fuerte [OH<sup>−</sup>] = [Base] (× n.º de OH<sup>−</sup>); ácido débil [H<sup>+</sup>] = √(K<sub>a</sub>·C); base débil [OH<sup>−</sup>] = √(K<sub>b</sub>·C).</li>
+          <li><strong>Convierte a escala logarítmica:</strong> si tienes [H<sup>+</sup>]: pH = −log[H<sup>+</sup>]. Si tienes [OH<sup>−</sup>]: pOH = −log[OH<sup>−</sup>] y pH = 14 − pOH.</li>
+        </ol>
+      </div>
+    </section>
+
+    <!-- ===================== EJEMPLOS ===================== -->
+    <section id="ejemplos" class="ejemplos-section">
+      <h2>Ejemplos resueltos</h2>
+      <p class="section-intro">Seis ejercicios paso a paso. Usa el botón de cada uno para verlo en la calculadora. <span class="nota">(Los ejemplos 4 a 6 usan la aproximación √(K·C); la calculadora resuelve la ecuación exacta, así que el pH puede diferir en ±0,01.)</span></p>
+<details class="ejemplo" data-ph="1.4" open><summary>Ejemplo 1 · pH de un ácido fuerte</summary>
+<p><strong>Problema:</strong> Calcule el pH de una disolución 0,04 M de ácido perclórico (HClO<sub>4</sub>).</p><ol><li>Ácido fuerte, disociación total: HClO<sub>4</sub> → H<sup>+</sup> + ClO<sub>4</sub><sup>−</sup>.</li><li>[H<sup>+</sup>] = 0,04 M.</li><li>pH = −log(0,04) = 1,40.</li></ol><p class="res">Resultado: pH = <strong>1,40</strong></p><button type="button" class="try" data-mode="acido-fuerte" data-in="af-c=0.04">Probar en la calculadora</button></details><details class="ejemplo" data-ph="12.45"><summary>Ejemplo 2 · Base fuerte monohidroxilada</summary>
+<p><strong>Problema:</strong> Calcule el pH de una disolución 0,028 M de KOH.</p><ol><li>KOH → K<sup>+</sup> + OH<sup>−</sup> (disociación total).</li><li>[OH<sup>−</sup>] = 0,028 M.</li><li>pOH = −log(0,028) = 1,55.</li><li>pH = 14 − 1,55 = 12,45.</li></ol><p class="res">Resultado: pOH = <strong>1,55</strong> · pH = <strong>12,45</strong></p><button type="button" class="try" data-mode="base-fuerte" data-in="bf-c=0.028">Probar en la calculadora</button></details><details class="ejemplo" data-ph="11.34"><summary>Ejemplo 3 · Base fuerte dihidroxilada</summary>
+<p><strong>Problema:</strong> Calcule el pH de una disolución 0,0011 M de Ca(OH)<sub>2</sub>.</p><ol><li>Ca(OH)<sub>2</sub> → Ca<sup>2+</sup> + 2 OH<sup>−</sup>.</li><li>[OH<sup>−</sup>] = 2 × 0,0011 = 0,0022 M.</li><li>pOH = −log(0,0022) = 2,66.</li><li>pH = 14 − 2,66 = 11,34.</li></ol><p class="res">Resultado: pH = <strong>11,34</strong></p><button type="button" class="try" data-mode="base-fuerte" data-in="bf-c=0.0022">Probar en la calculadora (con [OH⁻] = 0,0022 M)</button></details><details class="ejemplo" data-ph="2.38"><summary>Ejemplo 4 · Hallar K<sub>a</sub> desde la concentración y el pH</summary>
+<p><strong>Problema:</strong> Una disolución 0,10 M de ácido fórmico (HCOOH) tiene pH 2,38. Calcule K<sub>a</sub>.</p><ol><li>[H<sup>+</sup>] = 10<sup>−2,38</sup> = 4,17×10<sup>−3</sup> M.</li><li>K<sub>a</sub> = [H<sup>+</sup>]² / [Ácido].</li><li>K<sub>a</sub> = (4,17×10<sup>−3</sup>)² / 0,10 = 1,74×10<sup>−5</sup> / 0,10 = 1,74×10<sup>−4</sup>.</li></ol><p class="res">Resultado: K<sub>a</sub> = <strong>1,74×10<sup>−4</sup></strong></p><button type="button" class="try" data-mode="acido-debil" data-in="ad-c=0.1;ad-ka=0.000174">Verificar en la calculadora (K<sub>a</sub> → pH)</button></details><details class="ejemplo" data-ph="2.63"><summary>Ejemplo 5 · Ácido débil con K<sub>a</sub> conocida</summary>
+<p><strong>Problema:</strong> Calcule el pH de CH<sub>3</sub>COOH 0,30 M, con K<sub>a</sub> = 1,8×10<sup>−5</sup>.</p><ol><li>[H<sup>+</sup>] = √(K<sub>a</sub>·C).</li><li>[H<sup>+</sup>] = √(1,8×10<sup>−5</sup> · 0,30) = √(5,4×10<sup>−6</sup>) = 2,32×10<sup>−3</sup> M.</li><li>pH = −log(2,32×10<sup>−3</sup>) = 2,63.</li></ol><p class="res">Resultado: pH = <strong>2,63</strong></p><button type="button" class="try" data-mode="acido-debil" data-in="ad-c=0.3;ad-ka=0.000018">Probar en la calculadora</button></details><details class="ejemplo" data-ph="12.03"><summary>Ejemplo 6 · Base débil con K<sub>b</sub> conocida</summary>
+<p><strong>Problema:</strong> Calcule pH y pOH de metilamina (CH<sub>3</sub>NH<sub>2</sub>) 0,26 M, con K<sub>b</sub> = 4,4×10<sup>−4</sup>.</p><ol><li>[OH<sup>−</sup>] = √(K<sub>b</sub>·C).</li><li>[OH<sup>−</sup>] = √(4,4×10<sup>−4</sup> · 0,26) = √(1,144×10<sup>−4</sup>) = 0,0107 M.</li><li>pOH = −log(0,0107) = 1,97.</li><li>pH = 14 − 1,97 = 12,03.</li></ol><p class="res">Resultado: pOH = <strong>1,97</strong> · pH = <strong>12,03</strong></p><button type="button" class="try" data-mode="base-debil" data-in="bd-c=0.26;bd-kb=0.00044">Probar en la calculadora</button></details>
+    </section>
+
+  </main>
+
+  <footer>
+    <p>Calculadora educativa de ácido&#8211;base y pH &middot; Trabajo aplicado de Química</p>
+  </footer>
+
+</body>
+</html>
